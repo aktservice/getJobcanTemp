@@ -4,8 +4,8 @@
  * DO NOT MODIFY IT BY HAND. Instead, modify the source JSONSchema file,
  * and run json-schema-to-typescript to regenerate this file.
  */
-export namespace Jobcan {
-  export interface JobcanBase {
+declare namespace Jobcan {
+  interface JobcanBase {
     /**
      * 合計件数
      */
@@ -135,7 +135,7 @@ export namespace Jobcan {
     [k: string]: unknown;
   }
 
-  export interface JobcanResult {
+  interface JobcanResult {
     id: string;
     title: string;
     form_id: number;
@@ -165,7 +165,7 @@ export namespace Jobcan {
     detail: Detail;
   }
 
-  export interface Detail {
+  interface Detail {
     customized_items: CustomizedItem[];
     expense: null;
     payment: null;
@@ -176,19 +176,19 @@ export namespace Jobcan {
     modify_logs: any[];
   }
 
-  export interface ApprovalProcess {
+  interface ApprovalProcess {
     approval_route_modify_logs: any[];
     is_route_changed_by_applicant: boolean;
     steps: Step[];
     after_completion: AfterCompletion;
   }
 
-  export interface AfterCompletion {
+  interface AfterCompletion {
     comments: any[];
     files: any[];
   }
 
-  export interface Step {
+  interface Step {
     name: string;
     condition: string;
     status: string;
@@ -197,7 +197,7 @@ export namespace Jobcan {
     files: any[];
   }
 
-  export interface Approver {
+  interface Approver {
     status: string;
     approved_date: Date | null;
     approver_name: string;
@@ -206,21 +206,21 @@ export namespace Jobcan {
     proxy_approver_code: null;
   }
 
-  export interface CustomizedItem {
+  interface CustomizedItem {
     title: string;
     content: null | string;
     generic_master: null;
     files: null;
     table: null;
   }
-  export interface V2result {
+  interface V2result {
     count: number;
     next: string;
     previous: null;
     results: V2RequestResult[];
   }
 
-  export interface V2RequestResult {
+  interface V2RequestResult {
     id: string;
     title: string;
     status: string;
@@ -248,4 +248,12 @@ export namespace Jobcan {
     final_approval_period: Date;
     final_approved_date: Date;
   }
+
+  /* type status*/
+  type jobcanStatusRequest =
+    | "in_progress"
+    | "completed"
+    | "rejected"
+    | "returned"
+    | "canceled_after_completion";
 }

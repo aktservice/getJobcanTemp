@@ -1,4 +1,3 @@
-import { Jobcan } from "./@types/job2.d";
 //ref job2.d.ts
 export class RestJobcan {
   private BASEURL = `https://ssl.wf.jobcan.jp/wf_api/`;
@@ -13,11 +12,14 @@ export class RestJobcan {
   /**
    * getRequest
    */
-  public getRequests(appliedAfter: string, status: string = "in_progress") {
-    const baseurl = this.BASEURL;
+  public getRequests(
+    appliedAfter: string,
+    status: Jobcan.jobcanStatusRequest = "in_progress" //"in_progress"
+  ): Jobcan.V2result {
+    const baseurl: string = this.BASEURL;
     const reqString: string = `?applied_after=${appliedAfter}&status=${status}`;
 
-    const requestUrl = `${baseurl}v2/requests/${reqString}`;
+    const requestUrl: string = `${baseurl}v2/requests/${reqString}`;
 
     let result: Jobcan.V2result = this.getFetch(requestUrl);
     return result;
@@ -33,7 +35,7 @@ export class RestJobcan {
   public getCustomezedItemsByRequestId(
     request_id: string,
     onlyPart: boolean = true
-  ) {
+  ): string[] {
     const baseurl = this.BASEURL;
     const requestUrl = `${baseurl}v1/requests/${request_id}/`;
 
@@ -45,10 +47,12 @@ export class RestJobcan {
       }
     }
     let ret = [result.id, result.form_name];
-    result.detail.customized_items.forEach((element: CustomizedItem, index) => {
-      Logger.log(element.title);
-      ret.push(element.content);
-    });
+    result.detail.customized_items.forEach(
+      (element: Jobcan.CustomizedItem, index) => {
+        Logger.log(element.title);
+        ret.push(element.content);
+      }
+    );
     return ret;
   }
   /**
@@ -62,11 +66,12 @@ export class RestJobcan {
    * @returns {*}  {JobcanResult}
    * @memberof RestJobcan
    */
-  private getFetch(
+  private getFetch<T>(
     url: string,
     method: GoogleAppsScript.URL_Fetch.HttpMethod = "get",
-    payload: string = ""
-  ): Jobcan.V2result {
+    payload: string = "",
+    restType?: T
+  ): T {
     const pram: GoogleAppsScript.URL_Fetch.URLFetchRequestOptions = {
       method: method,
       contentType: "application/json",

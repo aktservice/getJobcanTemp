@@ -54,6 +54,10 @@ function test2() {
     }
     const id = element[idcolumn];
     const contents = rest.getCustomezedItemsByRequestId(id);
-    sheet2.appendRow(contents);
+    try {
+      sheet2.appendRow(contents);
+    } catch (error) {
+      sheet2.appendRow([id, error.message]);
+    }
   });
 }
