@@ -10,13 +10,24 @@ export class RestJobcan {
     }
   }
   /**
-   * getRequest
+   * @description
+   * @author yoshitaka <sato-yoshitaka@aktio.co.jp>
+   * @date 05/11/2024
+   * @param {string} appliedAfter
+   * @param {string} [nextURL]
+   * @param {Jobcan.jobcanStatusRequest} [status="in_progress"]
+   * @returns {*}  {Jobcan.V2result}
+   * @memberof RestJobcan
    */
   public getRequests(
     appliedAfter: string,
+    nextURL?: string | undefined,
     status: Jobcan.jobcanStatusRequest = "in_progress" //"in_progress"
   ): Jobcan.V2result {
-    const baseurl: string = this.BASEURL;
+    let baseurl: string = this.BASEURL;
+    if (nextURL) {
+      baseurl = nextURL;
+    }
     const reqString: string = `?applied_after=${appliedAfter}&status=${status}`;
 
     const requestUrl: string = `${baseurl}v2/requests/${reqString}`;
