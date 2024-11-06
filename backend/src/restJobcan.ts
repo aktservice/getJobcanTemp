@@ -80,8 +80,7 @@ export class RestJobcan {
   private getFetch<T>(
     url: string,
     method: GoogleAppsScript.URL_Fetch.HttpMethod = "get",
-    payload: string = "",
-    restType?: T
+    payload: string = ""
   ): T {
     const pram: GoogleAppsScript.URL_Fetch.URLFetchRequestOptions = {
       method: method,
@@ -94,7 +93,7 @@ export class RestJobcan {
     };
     //レスポンスを受ける変数
     let res: GoogleAppsScript.URL_Fetch.HTTPResponse;
-    let result: Jobcan.JobcanResult;
+    let result: T;
     let resCode: number;
     try {
       res = UrlFetchApp.fetch(url, pram);

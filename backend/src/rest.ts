@@ -12,7 +12,7 @@ function getJobcanReq(next: string, index: number = 0) {
   const asia = "Asia/Tokyo";
   const fmt = "yyyy/MM/dd";
   const tm = bf.getHours();
-  if (tm > 21) {
+  if (tm > 21 || tm < 9) {
     return;
   }
   const before = Utilities.formatDate(bf, asia, fmt);
